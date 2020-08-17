@@ -44,32 +44,26 @@ public class Main {
 	}
 
     public static double calculateMortgage(int loan, double percentageNumber, int months){
-
-		double mortgage = loan
+		return loan
 				*((percentageNumber*Math.pow((1+percentageNumber),months))
 				/(Math.pow((1+percentageNumber),months)-1));
-
-		return mortgage;
 	}
 
 	public static double monthlyInterest(double percentage){
 		final byte PERCENTAGE_NUMBER = 100;
 		final byte MONTHS_IN_YEAR = 12;
-		double percentageNumber = percentage/PERCENTAGE_NUMBER/MONTHS_IN_YEAR;
-		return percentageNumber;
+		return percentage/PERCENTAGE_NUMBER/MONTHS_IN_YEAR;
 	}
 
 	public static int paymentsPeriodInMonths(int period){
 		final byte MONTHS_IN_YEAR = 12;
-		int months = period*MONTHS_IN_YEAR;
-		return months;
+		return period*MONTHS_IN_YEAR;
 	}
 
 	public static double loanBalance(int loan, double percentageNumber, int months, int rate){
     	int remainingMonths = months - rate;
-    	double remainingBalance = loan*(
+    	return loan*(
 				((Math.pow((1+percentageNumber), months)) - (Math.pow((1+percentageNumber), remainingMonths)))
-				/((Math.pow((1+percentageNumber), months))-1));
-    	return remainingBalance;
+						/((Math.pow((1+percentageNumber), months))-1));
 	}
 }
