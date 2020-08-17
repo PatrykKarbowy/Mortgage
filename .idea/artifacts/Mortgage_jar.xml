@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Mortgage:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Mortgage_jar</output-path>
+    <root id="archive" name="Mortgage.jar">
+      <element id="module-output" name="Mortgage" />
+    </root>
+  </artifact>
+</component>
