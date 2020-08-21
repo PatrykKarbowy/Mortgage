@@ -1,69 +1,17 @@
 package com.company;
 
-import java.text.NumberFormat;
-import java.util.Scanner;
-
 public class Main {
 
     public static void main(String[] args) {
-		int loan = (int) readNumber("Loan: ", 1000, 1000000);
-		double percentage = readNumber("Annual rate percentage: ", 0, 30);
-		int period = (int) readNumber("Loan period in years: ", 1, 30);
+    	InputTaker input = new InputTaker();
+    	OutputPrinter out = new OutputPrinter();
 
-		printMortgage(loan, percentage, period);
-		printLoanBalance(loan, percentage, period);
+		int loan = (int) input.readNumber("Loan: ", 1000, 1000000);
+		double percentage = input.readNumber("Annual rate percentage: ", 0, 30);
+		int period = (int) input.readNumber("Loan period in years: ", 1, 30);
+
+		out.printMortgage(loan, percentage, period);
+		out.printLoanBalance(loan, percentage, period);
 	}
 
-	public static void printLoanBalance(int loan, double percentage, int period) {
-		int rate = paymentsPeriodInMonths(period);
-		System.out.println("\nPayment Schedule:\n");
-		for(int i = (rate-1); i >= 0; i-- ){
-			double loanBalance = loanBalance(loan, monthlyInterest(percentage), paymentsPeriodInMonths(period), i);
-			String loanBalanceFormatted = NumberFormat.getCurrencyInstance().format(loanBalance);
-			System.out.println(loanBalanceFormatted);
-		}
-	}
-
-	public static void printMortgage(int loan, double percentage, int period) {
-		double mortgage = calculateMortgage(loan, monthlyInterest(percentage), paymentsPeriodInMonths(period));
-		String mortgageFormatted = NumberFormat.getCurrencyInstance().format(mortgage);
-		System.out.println("Mortgage: " + mortgageFormatted);
-	}
-
-	public static double readNumber(String prompt, double min, double max){
-		Scanner scanner = new Scanner(System.in);
-		double value;
-		while (true){
-			System.out.print(prompt);
-			value = scanner.nextDouble();
-			if (value >= min && value <= max)
-				break;
-			System.out.println("Enter a number between" + min + " and " + max);
-		}
-		return value;
-	}
-
-    public static double calculateMortgage(int loan, double percentageNumber, int months){
-		return loan
-				*((percentageNumber*Math.pow((1+percentageNumber),months))
-				/(Math.pow((1+percentageNumber),months)-1));
-	}
-
-	public static double monthlyInterest(double percentage){
-		final byte PERCENTAGE_NUMBER = 100;
-		final byte MONTHS_IN_YEAR = 12;
-		return percentage/PERCENTAGE_NUMBER/MONTHS_IN_YEAR;
-	}
-
-	public static int paymentsPeriodInMonths(int period){
-		final byte MONTHS_IN_YEAR = 12;
-		return period*MONTHS_IN_YEAR;
-	}
-
-	public static double loanBalance(int loan, double percentageNumber, int months, int rate){
-    	int remainingMonths = months - rate;
-    	return loan*(
-				((Math.pow((1+percentageNumber), months)) - (Math.pow((1+percentageNumber), remainingMonths)))
-						/((Math.pow((1+percentageNumber), months))-1));
-	}
 }
